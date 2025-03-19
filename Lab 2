@@ -93,6 +93,7 @@ int main() {
 
 
 OUTPUT:
+Case1:
 Enter number of processes: 5
 Enter AT and BT for process 1: 0 5
 Enter AT and BT for process 2: 1 6
@@ -113,6 +114,24 @@ Average WT: 9.80
 Process returned 0 (0x0)   execution time : 74.140 s
 Press any key to continue.
 
+
+Case2:
+Enter number of processes: 4
+Enter AT and BT for process 1: 2 10
+Enter AT and BT for process 2: 4 6
+Enter AT and BT for process 3: 0 8
+Enter AT and BT for process 4: 6 4
+Enter time quantum: 4
+P#      AT      BT      CT      TAT     WT
+1       2       10      28      26      16
+2       4       6       26      22      16
+3       0       8       16      16      8
+4       6       4       20      14      10
+Average TAT: 19.50
+Average WT: 12.50
+
+Process returned 0 (0x0)   execution time : 16.938 s
+Press any key to continue.
 
 2. Priority Scheduling (Preemptive and Non-Preemptive)
 #include <stdio.h>
