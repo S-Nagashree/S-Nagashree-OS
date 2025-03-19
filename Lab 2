@@ -8,17 +8,20 @@ void roundRobin(int n, int at[], int bt[], int quant) {
     int queue[MAX], front = 0, rear = 0;
     int time = 0, completed = 0, visited[n];
 
+    // Initialize the remaining burst times and visited processes
     for (int i = 0; i < n; i++) {
         rem_bt[i] = bt[i];
         visited[i] = 0;
     }
 
-    queue[rear++] = 0;
-    visited[0] = 1;
+    // Start with the first process (assuming processes are 0-indexed)
+    queue[rear++] = 2;  // The process with arrival time 0 should be first
+    visited[2] = 1;
 
     while (completed < n) {
         int index = queue[front++];
-       
+
+        // Process the current task based on time quantum
         if (rem_bt[index] > quant) {
             time += quant;
             rem_bt[index] -= quant;
@@ -29,6 +32,7 @@ void roundRobin(int n, int at[], int bt[], int quant) {
             completed++;
         }
 
+        // Add processes that have arrived by the current time and are not yet visited
         for (int i = 0; i < n; i++) {
             if (at[i] <= time && rem_bt[i] > 0 && !visited[i]) {
                 queue[rear++] = i;
@@ -36,10 +40,12 @@ void roundRobin(int n, int at[], int bt[], int quant) {
             }
         }
 
+        // If the current process still has remaining burst time, put it back in the queue
         if (rem_bt[index] > 0) {
             queue[rear++] = index;
         }
 
+        // If the queue is empty, look for the next process that has not yet started
         if (front == rear) {
             for (int i = 0; i < n; i++) {
                 if (rem_bt[i] > 0) {
@@ -51,6 +57,7 @@ void roundRobin(int n, int at[], int bt[], int quant) {
         }
     }
 
+    // Calculate turnaround time (TAT) and waiting time (WT)
     float total_tat = 0, total_wt = 0;
     printf("P#\tAT\tBT\tCT\tTAT\tWT\n");
     for (int i = 0; i < n; i++) {
@@ -82,6 +89,8 @@ int main() {
     roundRobin(n, at, bt, quant);
     return 0;
 }
+
+
 
 OUTPUT:
 Enter number of processes: 5
